@@ -1,3 +1,13 @@
 .leaderboard {
     margin:auto;
 }
+
+.board {
+    float: left;
+    border: 3px;
+    border-style: double;
+    border-color: black;
+    height: 50%;
+    width: 50%;
+    margin-right: 2%;
+}

@@ -2,12 +2,24 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="../css/index.css">
+        <script type="text/javascript" src="../js/leaderboard.js"></script>
+        <script type="text/javascript" src="../js/generate-board.js"></script>
         <title>Memory page</title>
     </head>
     <body>
-        <h1>This is a piece of text :P</h1>
+        <div class="top-text">
+            <h1>JavaScript Memory</h1><br>
+            <p>Time playing: 0 seconds</p>
+            <p>Found pairs: 0</p>
+            <p>Remaining time: 0</p>
+        </div>
+        <div class="board">
+            <script>
+                generateBoard(4);
+            </script>
+        </div>
         <div class="leaderboard">
-            <p>This is text in a div, but you can't see that</p>
+            <p><b>Best players:</b></p>
         </div>
     </body>
 </html>
