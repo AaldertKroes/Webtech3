@@ -1,4 +1,11 @@
+.top-text {
+    text-align: center;
+    width: 60%;
+    font-family: monospace;
+}
+
 .leaderboard {
+    font-family: monospace;
     margin:auto;
 }
 
@@ -7,7 +14,7 @@
     border: 3px;
     border-style: double;
     border-color: black;
-    height: 50%;
+    height: 80%;
     width: 50%;
     margin-right: 2%;
 }

@@ -2,8 +2,8 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="../css/index.css">
-        <script type="text/javascript" src="../js/leaderboard.js"></script>
-        <script type="text/javascript" src="../js/generate-board.js"></script>
+        <script type="text/javascript" src="../js/Leaderboard.js"></script>
+        <script type="text/javascript" src="../js/Board.js"></script>
         <title>Memory page</title>
     </head>
     <body>
@@ -15,11 +15,16 @@
         </div>
         <div class="board">
             <script>
-                generateBoard(4);
+                const board = new Board(4);
+                board.generateBoard();
             </script>
         </div>
         <div class="leaderboard">
             <p><b>Best players:</b></p>
+            <script>
+                const leaderboard = new Leaderboard("bob","mart","koen","bas","tim");
+                leaderboard.printPlayerScores();
+            </script>
         </div>
     </body>
 </html>
