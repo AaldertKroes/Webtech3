@@ -8,8 +8,10 @@ class Leaderboard {
     }
 
     printPlayerScores(){
+        document.write("<p>");
         for (let i = 0; i < this.#player_scores.length; i++){
-            document.write("<p>"+this.#player_scores[i][0]+" has "+this.#player_scores[i][1]+" points.</p>");
+            document.write(this.#player_scores[i][0]+" has "+this.#player_scores[i][1]+" points.<br>");
         }
+        document.write("</p>");
     }
 }
