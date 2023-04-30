@@ -15,20 +15,24 @@ class Board {
         // Change background to green and lock panels
         this.#pairs_found += 1;
         document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#A4ED64";
-        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = this.#distributed_pairs[this.#flipped_pos[0]];
+        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = "<p id='"+this.#flipped_pos[0]+"content'>"+this.#distributed_pairs[this.#flipped_pos[0]]+"</p>";
         document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#A4ED64";
-        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = this.#distributed_pairs[this.#flipped_pos[1]];
+        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = "<p id='"+this.#flipped_pos[1]+"content'>"+this.#distributed_pairs[this.#flipped_pos[1]]+"</p>";
 
         this.#locked_pos.push(this.#flipped_pos[0]);
         this.#locked_pos.push(this.#flipped_pos[1]);
+        this.#score += 50;
+        this.#pairs_found += 1;
     }
 
     notFound(){
         // Change background back to gray and open panels
-        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#BFB8B7";
+        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "";
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = "<p id='"+this.#flipped_pos[0]+"content'>"+this.#flipped_pos[0]+"</p>";
-        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#BFB8B7";
+        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "";
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = "<p id='"+this.#flipped_pos[1]+"content'>"+this.#flipped_pos[1]+"</p>";
+
+        this.#score -= 5;
     }
 
     shuffle(array) {
@@ -77,7 +81,7 @@ class Board {
             this.#flipped_pieces = 0;
             this.#flipped_pos = [];
         } else if (this.#locked_pos.includes(id)) {
-            this.#score -= 10;
+            this.#score -= 0;
         } else {
         // Flip the card and remember it
             document.getElementById("item"+id).style.backgroundColor = "#F37462";
@@ -89,7 +93,7 @@ class Board {
 
     generateBoard(){
         // Generates a board of n*n size.
-        // Every block is inside its own <div> and uses the function flip() when clicked on
+        // Every block is inside its own <div> and uses the function board.flip(id) when clicked on
         var margin = 97.4 / this.#size;
         var z = 0;
 
@@ -105,4 +109,6 @@ class Board {
             document.write("</div>")
         }
     }
+
+    getPairsFound(){return this.#pairs_found;}
 }
