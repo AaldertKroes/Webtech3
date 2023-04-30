@@ -15,22 +15,22 @@ class Board {
         // Change background to green and lock panels
         this.#pairs_found += 1;
         document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#A4ED64";
-        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = "<p id='"+this.#flipped_pos[0]+"content'>"+this.#distributed_pairs[this.#flipped_pos[0]]+"</p>";
+        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#distributed_pairs[this.#flipped_pos[0]]}</p>`;
         document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#A4ED64";
-        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = "<p id='"+this.#flipped_pos[1]+"content'>"+this.#distributed_pairs[this.#flipped_pos[1]]+"</p>";
+        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#distributed_pairs[this.#flipped_pos[1]]}</p>`;
+        document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
 
         this.#locked_pos.push(this.#flipped_pos[0]);
         this.#locked_pos.push(this.#flipped_pos[1]);
         this.#score += 50;
-        this.#pairs_found += 1;
     }
 
     notFound(){
         // Change background back to gray and open panels
         document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "";
-        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = "<p id='"+this.#flipped_pos[0]+"content'>"+this.#flipped_pos[0]+"</p>";
+        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#flipped_pos[0]}</p>`;
         document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "";
-        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = "<p id='"+this.#flipped_pos[1]+"content'>"+this.#flipped_pos[1]+"</p>";
+        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#flipped_pos[1]}</p>`;
 
         this.#score -= 5;
     }
@@ -66,8 +66,6 @@ class Board {
     
     flip(id){
         // Flips the card and revealing the other side
-
-        // TODO: Niet alleen achtergrond anders, hele styling terug zetten.
         
         // If two cards are flipped
         if (this.#flipped_pieces === 2){
