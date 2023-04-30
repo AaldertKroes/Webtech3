@@ -1,6 +1,8 @@
 class Board {
-    #size;
+    #size = 0;
+    #score = 0;
     #pairs_found = 0;
+    #locked_pos = [];
     #flipped_pieces = 0;
     #flipped_pos = [];
     #distributed_pairs = [];
@@ -9,7 +11,28 @@ class Board {
         this.#size = size;
     }
 
+    found(){
+        // Change background to green and lock panels
+        this.#pairs_found += 1;
+        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#A4ED64";
+        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = this.#distributed_pairs[this.#flipped_pos[0]];
+        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#A4ED64";
+        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = this.#distributed_pairs[this.#flipped_pos[1]];
+
+        this.#locked_pos.push(this.#flipped_pos[0]);
+        this.#locked_pos.push(this.#flipped_pos[1]);
+    }
+
+    notFound(){
+        // Change background back to gray and open panels
+        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#BFB8B7";
+        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = "<p id='"+this.#flipped_pos[0]+"content'>"+this.#flipped_pos[0]+"</p>";
+        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#BFB8B7";
+        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = "<p id='"+this.#flipped_pos[1]+"content'>"+this.#flipped_pos[1]+"</p>";
+    }
+
     shuffle(array) {
+        // Shuffle all positions in an array
         for (var i = array.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
             var temp = array[i];
@@ -41,24 +64,20 @@ class Board {
         // Flips the card and revealing the other side
 
         // TODO: Niet alleen achtergrond anders, hele styling terug zetten.
-        // TODO: Kijken of onclick terug gezet kan worden.
-
+        
         // If two cards are flipped
         if (this.#flipped_pieces === 2){
             // If the same, make the cards green
             if (this.#distributed_pairs[this.#flipped_pos[0]] === this.#distributed_pairs[this.#flipped_pos[1]]){
-                this.#pairs_found += 1;
-                document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#A4ED64";
-                document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#A4ED64";
+                this.found();
             // If different, change colour back to gray
             } else {
-                document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#BFB8B7";
-                document.getElementById("item"+this.#flipped_pos[0]).innerHTML = this.#flipped_pos[0];
-                document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#BFB8B7";
-                document.getElementById("item"+this.#flipped_pos[1]).innerHTML = this.#flipped_pos[1];
+                this.notFound();
             }
             this.#flipped_pieces = 0;
             this.#flipped_pos = [];
+        } else if (this.#locked_pos.includes(id)) {
+            this.#score -= 10;
         } else {
         // Flip the card and remember it
             document.getElementById("item"+id).style.backgroundColor = "#F37462";
