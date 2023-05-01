@@ -20,8 +20,8 @@ class Board {
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#distributed_pairs[this.#flipped_pos[1]]}</p>`;
         document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
 
-        this.#locked_pos.push(this.#flipped_pos[0]);
-        this.#locked_pos.push(this.#flipped_pos[1]);
+        //this.#locked_pos.push(this.#flipped_pos[0]);
+        //this.#locked_pos.push(this.#flipped_pos[1]);
         this.#score += 50;
     }
 
@@ -31,7 +31,9 @@ class Board {
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#flipped_pos[0]}</p>`;
         document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "";
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#flipped_pos[1]}</p>`;
-
+        
+        this.#locked_pos.pop();
+        this.#locked_pos.pop();
         this.#score -= 5;
     }
 
@@ -72,6 +74,9 @@ class Board {
             // If the same, make the cards green
             if (this.#distributed_pairs[this.#flipped_pos[0]] === this.#distributed_pairs[this.#flipped_pos[1]]){
                 this.found();
+                if (this.#pairs_found === (this.#size * this.#size)/2) {
+                    document.getElementById("game_completed").innerHTML = "You have found all pairs :)";
+                }
             // If different, change colour back to gray
             } else {
                 this.notFound();
@@ -86,6 +91,7 @@ class Board {
             document.getElementById(id+"content").innerHTML = this.#distributed_pairs[id];
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
+            this.#locked_pos.push(id);
         }
     }
 

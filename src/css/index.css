@@ -1,10 +1,11 @@
 .top_text {
     text-align: center;
-    width: 60%;
+    width: 50%;
     font-family: monospace;
 }
 
 .leaderboard {
+    float: top;
     font-family: monospace;
     margin:auto;
 }
