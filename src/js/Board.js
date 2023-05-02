@@ -6,6 +6,8 @@ class Board {
     #flipped_pieces = 0;
     #flipped_pos = [];
     #distributed_pairs = [];
+    #time = new Date();
+    #futureTime = new Date(2040, 10, 5)
 
     constructor(size){
         this.#size = size;
@@ -36,6 +38,55 @@ class Board {
         this.#locked_pos.pop();
         this.#score -= 5;
     }
+
+    startTime() {
+        var h = this.#time.getHours();
+        var m = this.#time.getMinutes();
+        var s = this.#time.getSeconds();
+        const newTime = new Date();
+
+        var x = (newTime.getHours() - h) % 24;
+        var y = (newTime.getMinutes() - m) % 60;
+        var z = (newTime.getSeconds() - s) % 60;
+
+        if (x < 0) {
+            x = 24 + x;
+        }
+        if (y < 0){
+            y = 60 + y
+        }
+        if (z < 0){
+            z = 60 + y
+        }
+
+        // y = this.checkTime(y);
+        // z = this.checkTime(z);
+
+        document.getElementById('time_playing').innerHTML = "Time playing:" + x + ":" + y + ":" + z;
+        // setTimeout(startTime, 1000);
+    }
+
+    resetBoard(){
+        // const board = new Board(2);
+        // document.getElementById('board').innerHTML = "";
+        // document.getElementById('board').innerHTML = board.generateBoard();
+        alert("board reset  " + document.getElementById("jan").value)
+    }
+
+    // checkTime(i) {
+    //     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    //     return i;
+    // }
+
+    // timeLeft(){
+    //     var x = this.#time.getMinutes() + 3;
+    //     var y = this.#time.getSeconds();
+    //
+    //     var a = new Date().getMinutes() - x;
+    //     var b = y - new Date().getSeconds();
+    //
+    //     document.getElementById('time_remaining').innerHTML = "Remaining time:" + a + ":" + b;
+    // }
 
     shuffle(array) {
         // Shuffle all positions in an array
@@ -76,6 +127,7 @@ class Board {
                 this.found();
                 if (this.#pairs_found === (this.#size * this.#size)/2) {
                     document.getElementById("game_completed").innerHTML = "You have found all pairs :)";
+
                 }
             // If different, change colour back to gray
             } else {
@@ -93,6 +145,8 @@ class Board {
             this.#flipped_pos.push(id);
             this.#locked_pos.push(id);
         }
+        this.startTime();
+        // this.timeLeft();
     }
 
     generateBoard(){

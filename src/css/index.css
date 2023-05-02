@@ -17,5 +17,35 @@
     border-color: black;
     height: 80%;
     width: 50%;
-    margin-right: 2%;
+    margin: 2%;
 }
+
+.leaderboard {
+    float: left;
+    border: 3px;
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+    margin: 2%;
+}
+
+.center {
+    text-align: center;
+    margin: 5px;
+}
+
+/*als we een border willen met grid moet het zo*/
+/*
+
+.board {
+    display: grid;
+    float: left;
+    border: 3px;
+    border-style: double;
+    border-color: black;
+    height: 500px;
+    width: 50%;
+    margin: 2%;
+}
+
+*/

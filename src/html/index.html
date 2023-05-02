@@ -6,28 +6,55 @@
         <script type="text/javascript" src="../js/Board.js"></script>
         <title>Memory page</title>
     </head>
-    <body>
+    <body onload="board.startTime()">
         <div class="top_text">
             <h1 id="title">JavaScript Memory</h1>
-            <p id="time_playing">Time playing: 0</p>
+
+            <p id="time_playing"></p>
+
             <p id="found_pairs">Found pairs: 0</p>
             <p id="time_remaining">Remaining time: 0</p>
+            <p id="game_completed"></p>
             <a href="./index.html" class="refresh">Refresh page</a>
         </div>
         <div class="board">
             <script>
-                const board = new Board(6);
+                const board = new Board(2);
                 board.generateBoard();
             </script>
         </div>
         <div class="leaderboard">
+            <div>
             <p><b>Best players:</b></p>
             <script>
                 const leaderboard = new Leaderboard("bob","mart","koen","bas","tim");
                 leaderboard.printPlayerScores();
             </script>
+            </div>
+
+            <div class="center">
+                <p id="gemiddelde_tijd">gemiddlede tijd: x</p>
+            </div>
+
+            <div class="center">
+                <textarea class="text" name="henk" id="aantal_rijen" rows="1" placeholder="aantal rijen"></textarea>
+            </div>
+
+            <div class="center">
+                <textarea class="text" name="henk" id="inhoud_kaart" rows="1" placeholder="inhoud kaart"></textarea>
+            </div>
+
+            <div class="center">
+                <p id="kaartkleur">kaartkleur: </p> 
+                <p id="open">open: </p>
+                <p id="gevonden">gevonden: </p>
+            </div>
+
+            <div class="center">
+            <button class="resetbutton" href="#" onclick="board.resetBoard()">reset board</button>
+            </div>
         </div>
-        <p id="game_completed"></p>
+
         <div class="extras">
 
         </div>
