@@ -34,6 +34,11 @@
     margin: 5px;
 }
 
+/*word momenteel niet gebruikt, is voor <textarea>*/
+.text {
+    resize: none;
+}
+
 /*als we een border willen met grid moet het zo*/
 /*
 
