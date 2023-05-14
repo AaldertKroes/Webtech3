@@ -1,7 +1,8 @@
 .top_text {
     text-align: center;
-    width: 50%;
+    width: 96%;
     font-family: monospace;
+    margin: 2%;
 }
 
 .leaderboard {
@@ -11,22 +12,49 @@
 }
 
 .board {
-    float: left;
     border: 3px;
     border-style: double;
     border-color: black;
     height: 80%;
-    width: 50%;
+    width: 96%;
     margin: 2%;
 }
 
 .leaderboard {
-    float: left;
+    width: 96%;
     border: 3px;
     border-color: black;
     border-style: solid;
     text-align: center;
     margin: 2%;
+}
+
+@media only screen and (min-width: 700px) {
+    .top_text {
+        width: 50%;
+        margin: 0%;
+    }
+    
+    .board {
+        float: left;
+        width: 50%;
+    }
+
+    .leaderboard {
+        float: left;
+        width: 20%;
+    }
+}
+
+[class*="row"] {
+    display: flex;
+    align-items: stretch;
+    text-align: center;
+}
+
+[id*="item"] {
+    text-align: center;
+    flex-basis: auto;
 }
 
 .center {

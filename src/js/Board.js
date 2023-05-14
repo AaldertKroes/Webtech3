@@ -75,7 +75,7 @@ class Board {
             }
         }
 
-        // Shuffle the pairs and give them a position
+        // Shuffle the pairs and give them a position | Comment for easier testing
         this.shuffle(pairs);
         this.#distributed_pairs = pairs;
     }
@@ -119,10 +119,10 @@ class Board {
         this.generatePairs();
 
         for (let i = 0; i < this.#size; i++){
-            document.write("<div class='row"+i+"'>");
+            document.write(`<div class='row${i}'>`);
             for (let j = 0; j < this.#size; j++){
-                document.write("<style>#item"+z+"{background-color: #BFB8B7; border: 2px; border-color: black; border-style: solid; width: "+margin+"%; height: "+margin+"%; text-align: center; float: left;}</style>");
-                document.write("<div id='item"+z+"' onclick='board.flip("+z+")'><p id='"+z+"content'>"+z+"</p></div>");
+                document.write(`<style>#item${z}{background-color: #BFB8B7; border: 2px; border-color: black; border-style: solid; width: ${margin}%; height: "+margin+"%; text-align: center; float: left;}</style>`);
+                document.write(`<div id='item${z}' onclick='board.flip(${z})'><p id='${z}content'>${z}</p></div>`);
                 z += 1;
             }
             document.write("</div>")
