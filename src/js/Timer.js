@@ -2,7 +2,7 @@
  * bugs:
  * - tijd moet nog stopgezet worden als het spel voorbij is.
  */
-class Timer{
+export class Timer{
     #time = new Date();
     #futureTime = new Date(2040, 10, 5)
 

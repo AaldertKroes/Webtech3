@@ -4,9 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../css/index.css">
-        <script type="text/javascript" src="../js/Leaderboard.js"></script>
-        <script type="text/javascript" src="../js/Board.js"></script>
-        <script type="text/javascript" src="../js/Timer.js"></script>
+        <script src="../js/index.js" type="module"></script>
+        
         <title>Memory page</title>
     </head>
     <body>
@@ -14,31 +13,31 @@
             <h1 id="title">JavaScript Memory</h1>
 
             <p id="timer">Time playing: 00:00:00</p>
-            <script>
+            <!-- <script>
                 const timer = new Timer();
                 // timer.startTime()
                 setInterval(timere,1000);
                 function timere(){timer.startTime();}
-            </script>
+            </script> -->
 
             <p id="found_pairs">Found pairs: 0</p>
             <p id="time_remaining">Remaining time: 0</p>
             <p id="game_completed"></p>
             <a href="./index.html" class="refresh">Refresh page</a>
         </div>
-        <div class="board">
-            <script>
+        <div id="mainboard" class="board">
+            <!-- <script>
                 const board = new Board(6);
                 board.generateBoard();
-            </script>
+            </script> -->
         </div>
         <div class="leaderboard">
             <div>
             <p><b>Best players:</b></p>
-            <script>
+            <!-- <script>
                 const leaderboard = new Leaderboard("bob","mart","koen","bas","tim");
                 leaderboard.printPlayerScores();
-            </script>
+            </script> -->
             </div>
 
             <div class="center">

@@ -1,4 +1,4 @@
-class Board {
+export class Board {
     #size = 0;
     #score = 0;
     #pairs_found = 0;
@@ -81,6 +81,7 @@ class Board {
     }
     
     flip(id){
+        console.dir((id))
         // Flips the card and revealing the other side
         
         // If two cards are flipped
@@ -116,17 +117,19 @@ class Board {
         var margin = 97.4 / this.#size;
         var z = 0;
 
-        this.generatePairs();
+        this.generatePairs()
+        let naam = ''
 
         for (let i = 0; i < this.#size; i++){
-            document.write(`<div class='row${i}'>`);
+            naam += (`<div class='row${i}'>`);
             for (let j = 0; j < this.#size; j++){
-                document.write(`<style>#item${z}{background-color: #BFB8B7; border: 2px; border-color: black; border-style: solid; width: ${margin}%; height: "+margin+"%; text-align: center; float: left;}</style>`);
-                document.write(`<div id='item${z}' onclick='board.flip(${z})'><p id='${z}content'>${z}</p></div>`);
-                z += 1;
+                naam += (`<style>#item${z}{background-color: #BFB8B7; border: 2px; border-color: black; border-style: solid; width: ${margin}%; height: "+margin+"%; text-align: center; float: left;}</style>`);
+                naam += (`<div class="card" id='item${z}' data-cardid='${z}'><p id='${z}content'>${z}</p></div>`);
+                z += 1;                
             }
-            document.write("</div>")
+            naam += ("</div>")
         }
+        return naam
     }
 
     getPairsFound(){return this.#pairs_found;}

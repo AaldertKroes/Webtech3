@@ -1,4 +1,4 @@
-class Leaderboard {
+export class Leaderboard {
     #player_scores = [["test",0],["test",0],["test",0],["test",0],["test",0]];
 
     constructor(...players){
