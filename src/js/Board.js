@@ -7,13 +7,19 @@ export class Board {
     #flipped_pos = [];
     #distributed_pairs = [];
 
-
+    /**
+     * Constructor of the Board class
+     * @param {int} size to generate a size*size board.
+     */
     constructor(size){
         this.#size = size;
     }
 
+    /**
+     * If a pair is found, change the background colour to green and increment this.#pairs_found.
+     * The divs remain locked and can no longer be clicked on.
+     */
     found(){
-        // Change background to green and lock panels
         this.#pairs_found += 1;
         document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#A4ED64";
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#distributed_pairs[this.#flipped_pos[0]]}</p>`;
@@ -21,13 +27,14 @@ export class Board {
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#distributed_pairs[this.#flipped_pos[1]]}</p>`;
         document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
 
-        //this.#locked_pos.push(this.#flipped_pos[0]);
-        //this.#locked_pos.push(this.#flipped_pos[1]);
         this.#score += 50;
     }
 
+    /**
+     * If a pair is not found, change the background colour back to gray.
+     * The cards are unlocked and can be clicked on again.
+     */
     notFound(){
-        // Change background back to gray and open panels
         document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "";
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#flipped_pos[0]}</p>`;
         document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "";
@@ -50,9 +57,12 @@ export class Board {
     }
 
 
-
+    /**
+     * Shuffle all positions in an array once.
+     * The array given in the parameter gets shuffled, a new array is not returned.
+     * @param {array} array An array with all the items that need to be shuffled.
+     */
     shuffle(array) {
-        // Shuffle all positions in an array
         for (var i = array.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
             var temp = array[i];
@@ -61,6 +71,10 @@ export class Board {
         }
     }
 
+    /**
+     * Generate an array of pairs. Pairs are two instances of a 2-letter combination. ex: "AA, DE, FC".
+     * A number of combinations equal to half the amount of cards is generated so every combination exists twice.
+     */
     generatePairs(){
         // Arrays of possible letters and placeholder for upcoming pairs
         let letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"];
@@ -80,6 +94,11 @@ export class Board {
         this.#distributed_pairs = pairs;
     }
     
+    /**
+     * When a card is clicked, the card gets flipped and the value (letter combination) is shown and the card is locked.
+     * If two cards are clicked, check whether it's a pair or not.
+     * @param {int} id id of the clicked card.
+     */
     flip(id){
         console.dir((id))
         // Flips the card and revealing the other side
@@ -99,26 +118,26 @@ export class Board {
             }
             this.#flipped_pieces = 0;
             this.#flipped_pos = [];
-        } else if (this.#locked_pos.includes(id)) {
-            this.#score -= 0;
-        } else {
-        // Flip the card and remember it
+        } else if (!this.#locked_pos.includes(id)) {
+            // Flip the card and remember it
             document.getElementById("item"+id).style.backgroundColor = "#F37462";
             document.getElementById(id+"content").innerHTML = this.#distributed_pairs[id];
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
             this.#locked_pos.push(id);
-        }
+        }   
     }
 
+    /**
+     * Generates a board of n*n size, based on this.#size.
+     * @returns A string with HTML code that shows the entire board with its values.
+     */
     generateBoard(){
-        // Generates a board of n*n size.
-        // Every block is inside its own <div> and uses the function board.flip(id) when clicked on
         var margin = 97.4 / this.#size;
         var z = 0;
 
         this.generatePairs()
-        let naam = ''
+        let naam = '';
 
         for (let i = 0; i < this.#size; i++){
             naam += (`<div class='row${i}'>`);
@@ -127,10 +146,14 @@ export class Board {
                 naam += (`<div class="card" id='item${z}' data-cardid='${z}'><p id='${z}content'>${z}</p></div>`);
                 z += 1;                
             }
-            naam += ("</div>")
+            naam += ("</div>");
         }
         return naam
     }
 
+    /**
+     * Returns the amount of pairs found.
+     * @returns {int} amount of pairs found.
+     */
     getPairsFound(){return this.#pairs_found;}
 }
