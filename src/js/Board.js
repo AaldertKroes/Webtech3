@@ -1,12 +1,14 @@
 export class Board {
-    #size = 0;
+    #size = 2;
     #score = 0;
     #pairs_found = 0;
     #locked_pos = [];
     #flipped_pieces = 0;
     #flipped_pos = [];
     #distributed_pairs = [];
-
+    #card_color = document.getElementById("card_color").value;
+    #open_color = document.getElementById("open_color").value;
+    #found_color = document.getElementById("found_color").value;
     /**
      * Constructor of the Board class
      * @param {int} size to generate a size*size board.
@@ -21,9 +23,9 @@ export class Board {
      */
     found(){
         this.#pairs_found += 1;
-        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "#A4ED64";
+        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = this.#found_color;
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#distributed_pairs[this.#flipped_pos[0]]}</p>`;
-        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "#A4ED64";
+        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = this.#found_color;
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#distributed_pairs[this.#flipped_pos[1]]}</p>`;
         document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
 
@@ -35,9 +37,9 @@ export class Board {
      * The cards are unlocked and can be clicked on again.
      */
     notFound(){
-        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = "";
+        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = this.#card_color;
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#flipped_pos[0]}</p>`;
-        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = "";
+        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = this.#card_color;
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#flipped_pos[1]}</p>`;
         
         this.#locked_pos.pop();
@@ -47,13 +49,20 @@ export class Board {
 
 
     /**
-     * reset het board voor een nieuwe game (niet af)
+     * reset het board voor een nieuwe game
      */
-    resetBoard(){
-        // const board = new Board(2);
-        // document.getElementById('board').innerHTML = "";
-        // document.getElementById('board').innerHTML = board.generateBoard();
-        alert("board reset  " + document.getElementById("jan").value)
+    resetBoard(size){
+        const board = new Board(size.currentTarget.boardSize);
+        const b = board.generateBoard();
+
+        document.getElementById('mainboard').innerHTML = "";
+        document.getElementById('mainboard').innerHTML = b;
+        document.querySelectorAll('div.card').forEach ( card => card.addEventListener('click', evt => board.flip(evt.currentTarget.dataset.cardid)));
+
+        board.#pairs_found = 0;
+        document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${board.getPairsFound()}</p>`;
+
+        document.getElementById("game_completed").innerHTML = "";
     }
 
 
@@ -120,7 +129,13 @@ export class Board {
             this.#flipped_pos = [];
         } else if (!this.#locked_pos.includes(id)) {
             // Flip the card and remember it
-            document.getElementById("item"+id).style.backgroundColor = "#F37462";
+            if (document.getElementById("pictures").value === "none") {
+                document.getElementById("item" + id).style.backgroundColor = this.#open_color;
+
+            } else if (document.getElementById("pictures").value === "random"){ //moet hier een plaatje komen als achtergrond.
+                fetch(`https://picsum.photos/100/50?grayscale`)
+                    .then(img => document.getElementById("item" + id).style.backgroundImage = img.url)
+            }
             document.getElementById(id+"content").innerHTML = this.#distributed_pairs[id];
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
@@ -142,7 +157,7 @@ export class Board {
         for (let i = 0; i < this.#size; i++){
             naam += (`<div class='row${i}'>`);
             for (let j = 0; j < this.#size; j++){
-                naam += (`<style>#item${z}{background-color: #BFB8B7; border: 2px; border-color: black; border-style: solid; width: ${margin}%; height: "+margin+"%; text-align: center; float: left;}</style>`);
+                naam += (`<style>#item${z}{background-color: ${this.#card_color}; border: 2px; border-color: black; border-style: solid; width: ${margin}%; height: "+margin+"%; text-align: center; float: left;}</style>`);
                 naam += (`<div class="card" id='item${z}' data-cardid='${z}'><p id='${z}content'>${z}</p></div>`);
                 z += 1;                
             }

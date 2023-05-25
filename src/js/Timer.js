@@ -3,8 +3,14 @@
  * - tijd moet nog stopgezet worden als het spel voorbij is.
  */
 export class Timer{
-    #time = new Date();
-    #futureTime = new Date(2040, 10, 5)
+    #time = null;
+    #interval = null;
+
+    constructor() {
+        this.#time = new Date();
+        this.#interval = setInterval(() => this.startTime(),1000)
+    }
+
 
     /**
      * start de timer voor het spel, word geupdate wanneer er een flip word gedaan
@@ -21,9 +27,7 @@ export class Timer{
         minutesDiff = this.checkTime(minutesDiff);
         secondsDiff = this.checkTime(secondsDiff);
 
-
         document.getElementById('timer').innerHTML = "Time playing: " + hoursDiff + ":" + minutesDiff + ":" + secondsDiff;
-           // setTimeout(startTime, 1000);
     }
 
     /**
@@ -36,4 +40,18 @@ export class Timer{
         return i;
     }
 
+    /**
+     * reset de tijd (nieuwe date word aangemaakt en rekent vanuit dat moment verder)
+     */
+    reset(){
+        document.getElementById("timer").innerHTML = "Time playing: 00:00:00"
+        this.#time = new Date();
+    }
+
+    /**
+     * stopt de tijd
+     */
+    stop(){
+        clearInterval(this.#interval);
+    }
 }

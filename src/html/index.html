@@ -13,24 +13,15 @@
             <h1 id="title">JavaScript Memory</h1>
 
             <p id="timer">Time playing: 00:00:00</p>
-            <!-- <script>
-                const timer = new Timer();
-                // timer.startTime()
-                setInterval(timere,1000);
-                function timere(){timer.startTime();}
-            </script> -->
 
             <p id="found_pairs">Found pairs: 0</p>
             <p id="time_remaining">Remaining time: 0</p>
             <p id="game_completed"></p>
             <a href="./index.html" class="refresh">Refresh page</a>
         </div>
-        <div id="mainboard" class="board">
-            <!-- <script>
-                const board = new Board(6);
-                board.generateBoard();
-            </script> -->
-        </div>
+
+        <div id="mainboard" class="board"></div>
+
         <div class="leaderboard">
             <div>
             <p><b>Best players:</b></p>
@@ -41,14 +32,14 @@
             </div>
 
             <div class="center">
-                <p id="gemiddelde_tijd">gemiddlede tijd: x</p>
+                <p id="average_time">average time: x</p>
             </div>
 
             <div class="center">
 <!--                <textarea class="text" name="henk" id="aantal_rijen" rows="1" placeholder="aantal rijen"></textarea>-->
-                <label for="aantal_rijen">aantal rijen</label>
+                <label for="amount_rows">amount rows</label>
 
-                <select name="aantal_rijen" id="aantal_rijen">
+                <select name="amount_rows" id="amount_rows">
                     <option value="2">2</option>
                     <option value="4">4</option>
                     <option value="6">6</option>
@@ -58,36 +49,49 @@
 
             <div class="center">
 <!--                <textarea class="text" name="henk" id="inhoud_kaart" rows="1" placeholder="inhoud kaart"></textarea>-->
-                <label for="inhoud_kaart">inhoud kaart</label>
+                <label for="contents_card">contents card</label>
 
-                <select name="inhoud_kaart" id="inhoud_kaart">
+                <select name="inhoud_kaart" id="contents_card">
                     <option value="#">#</option>
                     <option value="+">+</option>
-                    <option value="getal">getal</option>
+                    <option value="getal">number</option>
                 </select>
             </div>
 
             <div class="center">
-                <p id="kaart">kaartkleur:
-                    <input class="center" type="color" id="kaart_kleur" onchange="clickColor(0, -1, -1, 5)" value="#969696" style="width:85%;">
+                <!-- onchange="clickColor(0, -1, -1, 5)" -->
+                <p id="card">cardcolor:
+                    <input class="center" type="color" id="card_color"  value="#BFB8B7" style="width:85%;">
                 </p>
 
                 <p id="open">open:
-                    <input class="center" type="color" id="open_kleur" onchange="clickColor(0, -1, -1, 5)" value="#F37462" style="width:85%;">
+                    <input class="center" type="color" id="open_color"  value="#F37462" style="width:85%;">
                 </p>
 
-                <p id="gevonden">gevonden:
-                    <input class="center" type="color" id="gevonden_kleur" onchange="clickColor(0, -1, -1, 5)" value="#A4ED64" style="width:85%;">
+                <p id="found">found:
+                    <input class="center" type="color" id="found_color" value="#A4ED64" style="width:85%;">
                 </p>
+            </div>
+<!-- -->
+            <div class="center">
+                <p>choose type of picture</p>
+                <select name="pictures" id="pictures">
+                    <option value="none">None</option>
+                    <option value="random">Random</option>
+                    <option value="dogs">Dogs</option>
+                    <option value="cats">Cats</option>
+                </select>
             </div>
 
             <div class="center">
-            <button class="resetbutton" href="#" onclick="board.resetBoard()">reset board</button>
+                <button class="resetbutton" id="resetbutton">reset board</button>
             </div>
         </div>
 
         <div class="extras">
 
         </div>
+
+
     </body>
 </html>
