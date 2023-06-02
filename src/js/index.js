@@ -20,3 +20,11 @@ const timer = new Timer();
 el.addEventListener('click', () => timer.reset());
 el.addEventListener('click', board.resetBoard);
 document.querySelectorAll('div.card').forEach ( card => card.addEventListener('click', evt => board.flip(evt.currentTarget.dataset.cardid)));
+
+// let imagesToPairs = [];
+// board.getDistributedPairs().forEach(el => {
+//
+// })
+//     fetch("https://picsum.photos/id/237/200/300")
+//     .then(res => document.getElementById("henk").source = res)
+

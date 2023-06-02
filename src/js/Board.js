@@ -6,6 +6,7 @@ export class Board {
     #flipped_pieces = 0;
     #flipped_pos = [];
     #distributed_pairs = [];
+    #pair_images = {};
     #card_color = document.getElementById("card_color").value;
     #open_color = document.getElementById("open_color").value;
     #found_color = document.getElementById("found_color").value;
@@ -32,6 +33,8 @@ export class Board {
         this.#score += 50;
     }
 
+
+
     /**
      * If a pair is not found, change the background colour back to gray.
      * The cards are unlocked and can be clicked on again.
@@ -41,7 +44,7 @@ export class Board {
         document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#flipped_pos[0]}</p>`;
         document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = this.#card_color;
         document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#flipped_pos[1]}</p>`;
-        
+
         this.#locked_pos.pop();
         this.#locked_pos.pop();
         this.#score -= 5;
@@ -92,9 +95,11 @@ export class Board {
         // Generation of letter pairs
         for (let i = 0; i < this.#size; i++){
             for (let j = 0; j < this.#size/2; j++){
-                var current_pair = letters[i] + letters[j];
+                let current_pair = letters[i] + letters[j];
                 pairs.push(current_pair);
                 pairs.push(current_pair);
+                fetch('http://picsum.photos/300/300')
+                    .then(res => this.#pair_images[current_pair] = res.url);
             }
         }
 
@@ -129,13 +134,16 @@ export class Board {
             this.#flipped_pos = [];
         } else if (!this.#locked_pos.includes(id)) {
             // Flip the card and remember it
-            if (document.getElementById("pictures").value === "none") {
-                document.getElementById("item" + id).style.backgroundColor = this.#open_color;
-
-            } else if (document.getElementById("pictures").value === "random"){ //moet hier een plaatje komen als achtergrond.
-                fetch(`https://picsum.photos/100/50?grayscale`)
-                    .then(img => document.getElementById("item" + id).style.backgroundImage = img.url)
+            if(this.#pair_images.length !== 0){
+                document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;
             }
+            // if (document.getElementById("pictures").value === "none") {
+            //     document.getElementById("item" + id).style.backgroundColor = this.#open_color;
+            //
+            // } else if (document.getElementById("pictures").value === "random"){ //moet hier een plaatje komen als achtergrond.
+            //     fetch(`https://picsum.photos/1/100/50?grayscale`)
+            //         .then(img => document.getElementById("item" + id).style.backgroundImage = img.url)
+            // }
             document.getElementById(id+"content").innerHTML = this.#distributed_pairs[id];
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
@@ -159,7 +167,7 @@ export class Board {
             for (let j = 0; j < this.#size; j++){
                 naam += (`<style>#item${z}{background-color: ${this.#card_color}; border: 2px; border-color: black; border-style: solid; width: ${margin}%; height: "+margin+"%; text-align: center; float: left;}</style>`);
                 naam += (`<div class="card" id='item${z}' data-cardid='${z}'><p id='${z}content'>${z}</p></div>`);
-                z += 1;                
+                z += 1;
             }
             naam += ("</div>");
         }
@@ -171,4 +179,5 @@ export class Board {
      * @returns {int} amount of pairs found.
      */
     getPairsFound(){return this.#pairs_found;}
+    getDistributedPairs(){return this.#distributed_pairs;}
 }

@@ -67,6 +67,18 @@
     resize: none;
 }
 
+div.card { width:10vw; height:10vh; }
+img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    flex-shrink: 0;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*overflow: hidden;*/
+    object-fit: cover;
+}
+
 /*als we een border willen met grid moet het zo*/
 /*
 
