@@ -73,9 +73,6 @@ img {
     height: 100%;
     display: block;
     flex-shrink: 0;
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*overflow: hidden;*/
     object-fit: cover;
 }
 

@@ -17,11 +17,11 @@ export class Timer{
      */
    startTime() {
         const newTime = new Date();
-        var timeDiff = newTime.getTime() - this.#time.getTime();
+        let timeDiff = newTime.getTime() - this.#time.getTime();
 
-        var hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
-        var minutesDiff = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-        var secondsDiff = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        let hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
+        let minutesDiff = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        let secondsDiff = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
         hoursDiff = this.checkTime(hoursDiff);
         minutesDiff = this.checkTime(minutesDiff);

@@ -1,3 +1,5 @@
+import { Timer } from './Timer.js';
+
 export class Board {
     #size = 2;
     #score = 0;
@@ -10,12 +12,15 @@ export class Board {
     #card_color = document.getElementById("card_color").value;
     #open_color = document.getElementById("open_color").value;
     #found_color = document.getElementById("found_color").value;
+    #timer = null;
     /**
      * Constructor of the Board class
      * @param {int} size to generate a size*size board.
      */
     constructor(size){
+
         this.#size = size;
+        this.#timer = new Timer();
     }
 
     /**
@@ -24,11 +29,12 @@ export class Board {
      */
     found(){
         this.#pairs_found += 1;
-        document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = this.#found_color;
-        document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#distributed_pairs[this.#flipped_pos[0]]}</p>`;
-        document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = this.#found_color;
-        document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#distributed_pairs[this.#flipped_pos[1]]}</p>`;
+        // document.getElementById("item"+this.#flipped_pos[0]).style.backgroundColor = this.#found_color;
+        // document.getElementById("item"+this.#flipped_pos[0]).innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#distributed_pairs[this.#flipped_pos[0]]}</p>`;
+        // document.getElementById("item"+this.#flipped_pos[1]).style.backgroundColor = this.#found_color;
+        // document.getElementById("item"+this.#flipped_pos[1]).innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#distributed_pairs[this.#flipped_pos[1]]}</p>`;
         document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
+        if (this.#pairs_found === (this.#size * this.#size)/2) {document.getElementById("game_completed").innerHTML = `You have found all ${(this.#size * this.#size)/2} pairs. Congratulations!`;}
 
         this.#score += 50;
     }
@@ -114,7 +120,6 @@ export class Board {
      * @param {int} id id of the clicked card.
      */
     flip(id){
-        console.dir((id))
         // Flips the card and revealing the other side
         
         // If two cards are flipped
@@ -122,10 +127,7 @@ export class Board {
             // If the same, make the cards green
             if (this.#distributed_pairs[this.#flipped_pos[0]] === this.#distributed_pairs[this.#flipped_pos[1]]){
                 this.found();
-                if (this.#pairs_found === (this.#size * this.#size)/2) {
-                    document.getElementById("game_completed").innerHTML = "You have found all pairs :)";
-
-                }
+                
             // If different, change colour back to gray
             } else {
                 this.notFound();
@@ -134,21 +136,34 @@ export class Board {
             this.#flipped_pos = [];
         } else if (!this.#locked_pos.includes(id)) {
             // Flip the card and remember it
-            if(this.#pair_images.length !== 0){
-                document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;
-            }
-            // if (document.getElementById("pictures").value === "none") {
-            //     document.getElementById("item" + id).style.backgroundColor = this.#open_color;
-            //
-            // } else if (document.getElementById("pictures").value === "random"){ //moet hier een plaatje komen als achtergrond.
-            //     fetch(`https://picsum.photos/1/100/50?grayscale`)
-            //         .then(img => document.getElementById("item" + id).style.backgroundImage = img.url)
-            // }
-            document.getElementById(id+"content").innerHTML = this.#distributed_pairs[id];
+            if(this.#pair_images.length !== 0){document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;}
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
             this.#locked_pos.push(id);
-        }   
+        }  
+        
+        // if (!this.#locked_pos.includes(id)) {
+        //     // Flip the card and remember it
+        //     if(this.#pair_images.length !== 0){document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;}
+        //     this.#flipped_pieces += 1;
+        //     this.#flipped_pos.push(id);
+        //     this.#locked_pos.push(id);
+
+        //     if (this.#flipped_pieces === 2){
+        //         setTimeout(() => {
+        //             // If the same, make the cards green
+        //             if (this.#distributed_pairs[this.#flipped_pos[0]] === this.#distributed_pairs[this.#flipped_pos[1]]){
+        //                 this.found();
+                        
+        //             // If different, change colour back to gray
+        //             } else {
+        //                 this.notFound();
+        //             }
+        //             this.#flipped_pieces = 0;
+        //             this.#flipped_pos = [];
+        //         }, 1500);
+        //     }
+        // }
     }
 
     /**
