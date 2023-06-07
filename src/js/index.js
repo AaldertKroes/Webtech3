@@ -21,6 +21,12 @@ el.addEventListener('click', () => document.querySelectorAll('div.card').forEach
 const board_size = document.getElementById("amount_rows");
 board_size.addEventListener('input', () => board.setSize(board_size.value));
 
+const card_color_el = document.getElementById("card_color")
+const open_color_el = document.getElementById("open_color")
+const found_color_el = document.getElementById("found_color")
+card_color_el.addEventListener('input', () => board.changeCardColor(card_color_el.value))
+open_color_el.addEventListener('input', () => board.changeOpenCardColor(open_color_el.value))
+found_color_el.addEventListener('input', () => board.changeFoundCardColor(found_color_el.value))
 const card_content = document.getElementById("contents_card");
 card_content.addEventListener('input', () => board.changeCardContent(card_content.value));
 
