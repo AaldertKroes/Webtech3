@@ -13,6 +13,7 @@ export class Board {
     #card_color = document.getElementById("card_color").value;
     #open_color = document.getElementById("open_color").value;
     #found_color = document.getElementById("found_color").value;
+    #picture_type = "none";
     #timer = null;
     /**
      * Constructor of the Board class
@@ -24,6 +25,40 @@ export class Board {
         this.#timer = new Timer();
     }
 
+    gameCompleted(){
+        const duration = 6 * 1000,
+        animationEnd = Date.now() + duration,
+        defaults = { startVelocity: 30, spread: 360, ticks: 30, zIndex: 0 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        // since particles fall down, start a bit higher than random
+        confetti(
+            Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+            })
+        );
+        confetti(
+            Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+            })
+        );
+        }, 250);
+    }
+
     /**
      * If a pair is found, change the background colour to green and increment this.#pairs_found.
      * The divs remain locked and can no longer be clicked on.
@@ -33,7 +68,10 @@ export class Board {
         document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
         document.getElementById(`item${this.#flipped_pos[0]}`).style.backgroundColor = this.#found_color;
         document.getElementById(`item${this.#flipped_pos[1]}`).style.backgroundColor = this.#found_color;
-        if (this.#pairs_found === (this.#size * this.#size)/2) {document.getElementById("game_completed").innerHTML = `You have found all ${(this.#size * this.#size)/2} pairs. Congratulations!`;}
+        if (this.#pairs_found === (this.#size * this.#size)/2) {
+            document.getElementById("game_completed").innerHTML = `You have found all ${(this.#size * this.#size)/2} pairs. Congratulations!`;
+            this.gameCompleted();
+        }
 
         this.#score += 50;
     }
@@ -105,8 +143,12 @@ export class Board {
                 let current_pair = letters[i] + letters[j];
                 pairs.push(current_pair);
                 pairs.push(current_pair);
-                // fetch('http://picsum.photos/300/300')
-                //     .then(res => this.#pair_images[current_pair] = res.url);
+                if(this.#picture_type === 'random'){
+                    fetch('http://picsum.photos/300/300')
+                    .then(res => this.#pair_images[current_pair] = res.url);
+                } else {
+                    this.#pair_images = {};
+                }
             }
         }
 
@@ -123,12 +165,14 @@ export class Board {
             }
         }
     }
+
     changeOpenCardColor(color){
         this.#open_color = color;
         for(let i = 0; i < this.#flipped_pos.length; i++){
             document.getElementById(`item${this.#flipped_pos[i]}`).style.backgroundColor = this.#open_color
         }
     }
+
     changeFoundCardColor(color){
         this.#found_color = color;
         for(let i = 0; i < this.#locked_pos.length; i++){
@@ -202,7 +246,7 @@ export class Board {
             }
             naam += ("</div>");
         }
-        return naam
+        return naam;
     }
 
     /**
@@ -214,4 +258,6 @@ export class Board {
 
     getSize(){return this.#size;}
     setSize(size){this.#size = size;}
+
+    setPictureType(type){this.#picture_type = type;}
 }
