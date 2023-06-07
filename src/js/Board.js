@@ -4,9 +4,9 @@ export class Board {
     #size = 2;
     #score = 0;
     #pairs_found = 0;
-    #locked_pos = [];
+    #locked_pos = []; //array met posities van kaarten die open staan
     #flipped_pieces = 0;
-    #flipped_pos = [];
+    #flipped_pos = [];//zijn posities van kaarten die zijn gevonden en open staan
     #distributed_pairs = [];
     #pair_images = {};
     #card_color = document.getElementById("card_color").value;
@@ -30,6 +30,8 @@ export class Board {
     found(){
         this.#pairs_found += 1;
         document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${this.getPairsFound()}</p>`;
+        document.getElementById(`item${this.#flipped_pos[0]}`).style.backgroundColor = this.#found_color;
+        document.getElementById(`item${this.#flipped_pos[1]}`).style.backgroundColor = this.#found_color;
         if (this.#pairs_found === (this.#size * this.#size)/2) {document.getElementById("game_completed").innerHTML = `You have found all ${(this.#size * this.#size)/2} pairs. Congratulations!`;}
 
         this.#score += 50;
@@ -104,8 +106,8 @@ export class Board {
                 let current_pair = letters[i] + letters[j];
                 pairs.push(current_pair);
                 pairs.push(current_pair);
-                fetch('http://picsum.photos/300/300')
-                    .then(res => this.#pair_images[current_pair] = res.url);
+                // fetch('http://picsum.photos/300/300')
+                //     .then(res => this.#pair_images[current_pair] = res.url);
             }
         }
 
@@ -117,7 +119,23 @@ export class Board {
     changeCardColor(color){
         this.#card_color = color;
         for(let i = 0; i < this.#distributed_pairs.length; i++){
-            if(!this.#locked_pos.includes(this.#distributed_pairs[i])){document.getElementById(`item${i}`).style.backgroundColor = this.#card_color;}
+            if(!this.#locked_pos.includes(this.#distributed_pairs[i])){
+                document.getElementById(`item${i}`).style.backgroundColor = this.#card_color;
+            }
+        }
+    }
+    changeOpenCardColor(color){
+        this.#open_color = color;
+        for(let i = 0; i < this.#flipped_pos.length; i++){
+            document.getElementById(`item${this.#flipped_pos[i]}`).style.backgroundColor = this.#open_color
+        }
+    }
+    changeFoundCardColor(color){
+        this.#found_color = color;
+        for(let i = 0; i < this.#locked_pos.length; i++){
+            if(!this.#flipped_pos.includes(this.#locked_pos[i])){
+                document.getElementById(`item${this.#locked_pos[i]}`).style.backgroundColor = this.#found_color;
+            }
         }
     }
     
@@ -143,7 +161,12 @@ export class Board {
             this.#flipped_pos = [];
         } else if (!this.#locked_pos.includes(id)) {
             // Flip the card and remember it
-            if(this.#pair_images.length !== 0){document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;}
+            if(Object.keys(this.#pair_images).length !== 0){document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;}
+            else if(Object.keys(this.#pair_images).length === 0){
+                let currentCard = document.getElementById(`item${id}`)
+                currentCard.innerHTML = `<p id="${id}content">${this.#distributed_pairs[id]}</p>`;
+                currentCard.style.backgroundColor = this.#open_color;
+            }
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
             this.#locked_pos.push(id);
