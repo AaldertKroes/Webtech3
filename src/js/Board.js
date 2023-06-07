@@ -9,6 +9,7 @@ export class Board {
     #flipped_pos = [];
     #distributed_pairs = [];
     #pair_images = {};
+    #card_content = 'number';
     #card_color = document.getElementById("card_color").value;
     #open_color = document.getElementById("open_color").value;
     #found_color = document.getElementById("found_color").value;
@@ -120,6 +121,15 @@ export class Board {
             if(!this.#locked_pos.includes(this.#distributed_pairs[i])){document.getElementById(`item${i}`).style.backgroundColor = this.#card_color;}
         }
     }
+
+    changeCardContent(content){
+        this.#card_content = content;
+        let number = 0;
+        for(let i = 0; i < this.#distributed_pairs.length; i++){
+            if(!this.#locked_pos.includes(this.#distributed_pairs[i])){document.getElementById(`${i}content`).innerHTML = (this.#card_content === "number" ? number : this.#card_content);}
+            number++;
+        }
+    }
     
     /**
      * When a card is clicked, the card gets flipped and the value (letter combination) is shown and the card is locked.
@@ -147,30 +157,7 @@ export class Board {
             this.#flipped_pieces += 1;
             this.#flipped_pos.push(id);
             this.#locked_pos.push(id);
-        }  
-        
-        // if (!this.#locked_pos.includes(id)) {
-        //     // Flip the card and remember it
-        //     if(this.#pair_images.length !== 0){document.getElementById("item"+id).innerHTML = `<img id='${id}content' src='${this.#pair_images[this.#distributed_pairs[id]]}' alt='${this.#distributed_pairs[id]}'>`;}
-        //     this.#flipped_pieces += 1;
-        //     this.#flipped_pos.push(id);
-        //     this.#locked_pos.push(id);
-
-        //     if (this.#flipped_pieces === 2){
-        //         setTimeout(() => {
-        //             // If the same, make the cards green
-        //             if (this.#distributed_pairs[this.#flipped_pos[0]] === this.#distributed_pairs[this.#flipped_pos[1]]){
-        //                 this.found();
-                        
-        //             // If different, change colour back to gray
-        //             } else {
-        //                 this.notFound();
-        //             }
-        //             this.#flipped_pieces = 0;
-        //             this.#flipped_pos = [];
-        //         }, 1500);
-        //     }
-        // }
+        }
     }
 
     /**
@@ -178,8 +165,9 @@ export class Board {
      * @returns A string with HTML code that shows the entire board with its values.
      */
     generateBoard(){
-        var margin = 97.4 / this.#size;
-        var z = 0;
+        let margin = 97.4 / this.#size;
+        let z = 0;
+
 
         this.generatePairs()
         let naam = '';

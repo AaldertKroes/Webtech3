@@ -21,11 +21,8 @@ el.addEventListener('click', () => timer.reset());
 el.addEventListener('click', board.resetBoard);
 document.querySelectorAll('div.card').forEach ( card => card.addEventListener('click', evt => board.flip(evt.currentTarget.dataset.cardid)));
 
-// let imagesToPairs = [];
-// board.getDistributedPairs().forEach(el => {
-//
-// })
-//     fetch("https://picsum.photos/id/237/200/300")
-//     .then(res => document.getElementById("henk").source = res)
-const card_color_picker = document.getElementById("card_color")
-card_color_picker.addEventListener('input', () => board.changeCardColor(card_color_picker.value))
+const card_content = document.getElementById("contents_card");
+card_content.addEventListener('input', () => board.changeCardContent(card_content.value));
+
+const card_color_picker = document.getElementById("card_color");
+card_color_picker.addEventListener('input', () => board.changeCardColor(card_color_picker.value));
