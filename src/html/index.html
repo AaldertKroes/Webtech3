@@ -17,7 +17,7 @@
             <p id="found_pairs">Found pairs: 0</p>
             <p id="time_remaining">Remaining time: 0</p>
             <p id="game_completed"></p>
-            <a href="./index.html" class="refresh">Refresh page</a>
+            <a href="./index.html" class="refresh">Refresh page (only for developers >:| )</a>
         </div>
 
         <div id="mainboard" class="board"></div>
@@ -37,6 +37,7 @@
                 <label for="amount_rows">amount rows</label>
 
                 <select name="amount_rows" id="amount_rows">
+                    <option value="select">select</option>
                     <option value="2">2</option>
                     <option value="4">4</option>
                     <option value="6">6</option>
@@ -49,9 +50,14 @@
                 <label for="contents_card">contents card</label>
 
                 <select name="inhoud_kaart" id="contents_card">
+                    <option value="select">select</option>
                     <option value="number">number</option>
                     <option value="#">#</option>
                     <option value="+">+</option>
+                    <option value="0">0</option>
+                    <option value="-">-</option>
+                    <option value="[]">[]</option>
+                    <option value="()">()</option>
                 </select>
             </div>
             
@@ -73,6 +79,7 @@
             <div class="center">
                 <p>choose type of picture</p>
                 <select name="pictures" id="pictures">
+                    <option value="select">select</option>
                     <option value="none">None</option>
                     <option value="random">Random</option>
                     <option value="dogs">Dogs</option>

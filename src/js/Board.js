@@ -43,14 +43,15 @@ export class Board {
      * The cards are unlocked and can be clicked on again.
      */
     notFound(){
+        let content = this.#card_content;
         let card1 = document.getElementById("item"+this.#flipped_pos[0]);
         let card2 = document.getElementById("item"+this.#flipped_pos[1]);
 
         card1.style.backgroundColor = this.#card_color;
-        card1.innerHTML = `<p id='${this.#flipped_pos[0]}content'>${this.#flipped_pos[0]}</p>`;
+        card1.innerHTML = `<p id='${this.#flipped_pos[0]}content'>${(content === "number" && content !== "select" ? this.#flipped_pos[0] : content)}</p>`;
 
         card2.style.backgroundColor = this.#card_color;
-        card2.innerHTML = `<p id='${this.#flipped_pos[1]}content'>${this.#flipped_pos[1]}</p>`;
+        card2.innerHTML = `<p id='${this.#flipped_pos[1]}content'>${(content === "number" && content !== "select" ? this.#flipped_pos[1] : content)}</p>`;
     
         this.#locked_pos.pop();
         this.#locked_pos.pop();
@@ -61,18 +62,15 @@ export class Board {
     /**
      * reset het board voor een nieuwe game
      */
-    resetBoard(size){
-        const board = new Board(size.currentTarget.boardSize);
-        const b = board.generateBoard();
+    resetBoard(){
+        const b = this.generateBoard();
 
-        //document.getElementById('mainboard').innerHTML = "";
         document.getElementById('mainboard').innerHTML = b;
-        document.querySelectorAll('div.card').forEach ( card => card.addEventListener('click', evt => board.flip(evt.currentTarget.dataset.cardid)));
-
-        board.#pairs_found = 0;
-        document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: ${board.getPairsFound()}</p>`;
-
+        document.getElementById("found_pairs").innerHTML = `<p id='found_pairs'>Found pairs: 0</p>`;
         document.getElementById("game_completed").innerHTML = "";
+
+        this.#pairs_found = 0;
+        this.#locked_pos = [];
     }
 
 
@@ -126,7 +124,7 @@ export class Board {
         this.#card_content = content;
         let number = 0;
         for(let i = 0; i < this.#distributed_pairs.length; i++){
-            if(!this.#locked_pos.includes(this.#distributed_pairs[i])){document.getElementById(`${i}content`).innerHTML = (this.#card_content === "number" ? number : this.#card_content);}
+            if(!this.#locked_pos.includes(this.#distributed_pairs[i])){document.getElementById(`${i}content`).innerHTML = (this.#card_content === "number" && this.#card_content !== "select" ? number : this.#card_content);}
             number++;
         }
     }
@@ -190,4 +188,7 @@ export class Board {
      */
     getPairsFound(){return this.#pairs_found;}
     getDistributedPairs(){return this.#distributed_pairs;}
+
+    getSize(){return this.#size;}
+    setSize(size){this.#size = size;}
 }
