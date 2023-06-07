@@ -113,6 +113,13 @@ export class Board {
         this.shuffle(pairs);
         this.#distributed_pairs = pairs;
     }
+
+    changeCardColor(color){
+        this.#card_color = color;
+        for(let i = 0; i < this.#distributed_pairs.length; i++){
+            if(!this.#locked_pos.includes(this.#distributed_pairs[i])){document.getElementById(`item${i}`).style.backgroundColor = this.#card_color;}
+        }
+    }
     
     /**
      * When a card is clicked, the card gets flipped and the value (letter combination) is shown and the card is locked.

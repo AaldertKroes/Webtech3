@@ -27,4 +27,5 @@ document.querySelectorAll('div.card').forEach ( card => card.addEventListener('c
 // })
 //     fetch("https://picsum.photos/id/237/200/300")
 //     .then(res => document.getElementById("henk").source = res)
-
+const card_color_picker = document.getElementById("card_color")
+card_color_picker.addEventListener('input', () => board.changeCardColor(card_color_picker.value))
