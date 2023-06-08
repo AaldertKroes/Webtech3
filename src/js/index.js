@@ -39,4 +39,4 @@ card_content.addEventListener('input', () => board.changeCardContent(card_conten
 
 //***********************************************************picture type*******************************************************************
 const picture_type = document.getElementById("pictures_shown");
-picture_type.addEventListener('input', () => board.setPictureType(picture_type.value));
+picture_type.addEventListener('input', () => board.setPictureType(picture_type.value)); 
