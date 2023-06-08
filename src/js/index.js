@@ -4,7 +4,7 @@ import { Timer } from './Timer.js';
 
 const board = new Board(6);
 const b = board.generateBoard();
-document.getElementById('mainboard').innerHTML = b;
+document.getElementById('mainboard_child').innerHTML = b;
 document.querySelectorAll('div.card').forEach ( card => card.addEventListener('click', evt => board.flip(evt.currentTarget.dataset.cardid)));
 
 
