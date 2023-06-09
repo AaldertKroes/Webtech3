@@ -1,0 +1,101 @@
+.top_text {
+    text-align: center;
+    width: 96%;
+    font-family: monospace;
+    margin: 2%;
+}
+
+.leaderboard {
+    float: top;
+    font-family: monospace;
+    margin:auto;
+}
+
+.board {
+    /* border: 3px;
+    border-style: double;
+    border-color: black; */
+    height: 80%;
+    width: 96%;
+    margin: 0 auto;
+}
+#mainboard_child {
+    margin: 0 auto;
+}
+
+.leaderboard {
+    width: 96%;
+    border: 3px;
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+    margin: 2%;
+}
+
+@media only screen and (min-width: 700px) {
+    .top_text {
+        width: 50%;
+        margin: 0%;
+    }
+    
+    .board {
+        float: left;
+        width: 50vh;
+        height: 50vh;
+    }
+
+    .leaderboard {
+        float: left;
+        width: 20%;
+    }
+}
+
+[class*="row"] {
+    display: flex;
+    align-items: stretch;
+}
+
+[id*="item"] {
+    /* flex-basis: auto; */
+    width: 10vh;
+    height: 10vh;
+}
+
+.center {
+    text-align: center;
+    margin: 5px;
+}
+
+/*word momenteel niet gebruikt, is voor <textarea>*/
+.text {
+    resize: none;
+}
+
+div.card {
+    border-radius: 1vh;
+    height: 10vh;
+    width:  10vh;
+}
+img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+/*als we een border willen met grid moet het zo*/
+/*
+
+.board {
+    display: grid;
+    float: left;
+    border: 3px;
+    border-style: double;
+    border-color: black;
+    height: 500px;
+    width: 50%;
+    margin: 2%;
+}
+
+*/
