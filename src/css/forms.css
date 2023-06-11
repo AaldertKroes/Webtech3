@@ -1,0 +1,30 @@
+.inputField {
+    background:#ecf0f1;
+    border: #ccc 1px solid;
+    border-bottom: #ccc 2px solid;
+    padding: 8px;
+    width: 60vw;
+    color:#AAAAAA;
+    margin-top: 1vw;
+    font-size: 1em;
+    border-radius: 4px;
+}
+
+.submitButton {
+    background: #3d95e3;
+    border-radius: 1vw;
+    margin-top: 1vw;
+    width: 30vw;
+    height: 10vw;
+    border: #156ebd 2px solid;
+}
+
+@media only screen and (min-width: 700px) {
+    .inputField {
+        width: 35vw;
+    }
+    .submitButton {
+        width: 10vw;
+        height: 3vh;
+    }
+}

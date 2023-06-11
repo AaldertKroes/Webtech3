@@ -1,20 +1,25 @@
+body {
+    background-color: #d3d9e3;
+    font-family: monospace;
+}
+
 .top_text {
     text-align: center;
     width: 96%;
-    font-family: monospace;
     margin: 2%;
 }
 
 .leaderboard {
+    background: white;
+    border-radius: 1vw;
+    border: #2980b9 4px solid;
+    width: 96%;
+    text-align: center;
     float: top;
-    font-family: monospace;
     margin:auto;
 }
 
 .board {
-    /* border: 3px;
-    border-style: double;
-    border-color: black; */
     height: 80%;
     width: 96%;
     margin: 0 auto;
@@ -23,13 +28,18 @@
     margin: 0 auto;
 }
 
-.leaderboard {
-    width: 96%;
-    border: 3px;
-    border-color: black;
-    border-style: solid;
+.topBar {
+    width: 100%;
+    height: 4vh;
+    background: #a3cbf0;
     text-align: center;
-    margin: 2%;
+}
+
+.topBarButton {
+    background: #3d95e3;
+    border-radius: 1vw;
+    height: 100%;
+    width: 25vw;
 }
 
 @media only screen and (min-width: 700px) {
@@ -48,6 +58,10 @@
         float: left;
         width: 20%;
     }
+
+    .topBarButton{
+        width: 10vw;
+    }
 }
 
 [class*="row"] {
@@ -56,7 +70,6 @@
 }
 
 [id*="item"] {
-    /* flex-basis: auto; */
     width: 10vh;
     height: 10vh;
 }

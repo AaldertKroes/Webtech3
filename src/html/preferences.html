@@ -4,8 +4,35 @@
         <title>Memory | Preferences</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/preferences.css">
+        <link rel="stylesheet" href="../css/forms.css">
     </head>
     <body>
         <p>Save your preferences here</p>
+        <div class="preferencesBox">
+            <div class="changeEmail">
+                <h3>Change email</h3>
+                <form method="POST" action="#">
+                    <input type="email" class="inputField" name="email" placeholder="E-mail address" required><br>
+                    <input type="submit" class="submitButton" value="Sign in"><br>
+                </form>
+            </div>
+            <div class="setPreferences">
+                <h3>Set preferred colors</h3>
+                <p id="card">cardColor:
+                    <input class="center" type="color" id="card_color"  value="#BFB8B7" style="width:85%;">
+                </p>
+
+                <p id="open">openCardColor:
+                    <input class="center" type="color" id="open_color"  value="#F37462" style="width:85%;">
+                </p>
+
+                <p id="found">foundCardColor:
+                    <input class="center" type="color" id="found_color" value="#A4ED64" style="width:85%;">
+                </p>
+                <button type="button" class="submitButton">Save</button>
+                <!-- Voeg nog een eventlistener toe aan deze button -->
+            </div>
+        </div>
     </body>
 </html>
