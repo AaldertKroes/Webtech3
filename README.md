@@ -8,4 +8,14 @@
  Work in the Development branch
  Make your own branch -> merge Development into your branch -> merge your branch into Development
 
- https://hanze-hbo-ict.github.io/webtech3/week2/memory.html
+https://hanze-hbo-ict.github.io/webtech3/index.html
+
+Before this server is running, the backend needs to be set up.
+Make sure the backend is running on `localhost:8000`
+
+To start the server:
+```
+cd .../Webtech3/src
+php -S localhost:9000
+```
+Then navigate to `localhost:9000/html/index.html`

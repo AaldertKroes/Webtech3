@@ -10,12 +10,15 @@
     <body>
         <div class="loginRegisterBox">
             <h2 id="loginText">Login</h2>
-            <form method="POST" action="login.html">
-                <input type="email" class="inputField" name="email" placeholder="E-mail address" required><br>
-                <input type="password" id="password" class="inputField" placeholder="Password" required><br>
-                <input type="submit" class="submitButton" value="Sign in">
+            <form id="form" method="POST" action="login.html">
+                <input type="text" class="inputField" name="username" placeholder="Username" required><br>
+                <input type="password" name="password" class="inputField" placeholder="Password" required><br>
+                <button type="submit" id="submit" class="submitButton">Sign in</button>
             </form>
+            <p id="invalid-credentials"></p>
         </div>
         <p class="relink">Don't have an account yet? <a href="./register.html">Register here</a>.</p>
     </body>
+
+    <script src="../js/login-handler.js"></script>
 </html>
