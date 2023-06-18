@@ -2,9 +2,14 @@ if(localStorage.getItem("token") === null){
     alert("Token has either expired or is not set. Please login again.");
     window.location.replace("http://localhost:9000/html/login.html");
 }
-
 let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
+let expiration_date = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["exp"];
 
+if (expiration_date < (Date.now()/1000)){
+    alert("Token has expired. Please login");
+    localStorage.clear();
+    window.location.replace("http://localhost:9000/html/login.html")
+}
 document.getElementById("submit").addEventListener('click', (evt) => {
     const data = new FormData(document.querySelector('form'));
     const sendData = {"email": data.get("email")}
