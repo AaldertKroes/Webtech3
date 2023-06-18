@@ -1,13 +1,12 @@
-let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
-
 if(localStorage.getItem("token") === null){
     alert("Token has either expired or is not set. Please login again.");
     window.location.replace("http://localhost:9000/html/login.html");
 }
 
+let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
+
 document.getElementById("submit").addEventListener('click', (evt) => {
     const data = new FormData(document.querySelector('form'));
-    // const sendData = {"mail"}
     const sendData = {"email": data.get("email")}
 
     fetch(`http://localhost:8000/api/player/${currentPlayerId}/email`, {
@@ -18,15 +17,6 @@ document.getElementById("submit").addEventListener('click', (evt) => {
         },
         body:JSON.stringify(sendData)
     })
-        .then(res => (res.status === 204 ? res.json() : function (){console.log("nee")}))
-        .then(token => window.location.href = "http://localhost:9000/html/index.html")
-
-    // fetch(`https://localhost:8000/api/players/${currentPlayerId}`, {
-    //     method:"GET",
-    //     headers: {
-    //         "Content-Type":"application/json",
-    //         "Authorization":`Bearer ${localStorage.getItem("token")}`
-    //     }}).then(data => console.log(data))
 })
 
 // Aaldert's werk lmao
