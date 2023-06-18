@@ -31,7 +31,6 @@ fetch('http://localhost:8000/scores', {method:'GET',
 .then(res => (res.status === 200 ? res.json() : console.log(res)))
 .then(json => json.sort((a,b) => {if(a.score < b.score){return 1}}))
 .then(sorted => {
-    console.log(sorted);
     let loopLength = (sorted.length >= 5 ? 5 : sorted.length);
     let leaderboardPlayers = '<p id="players">';
     for(let i = 0; i < loopLength; i++){
@@ -49,7 +48,7 @@ fetch(`http://localhost:8000/api/player/${currentPlayerId}/preferences`, {
     }
 })
 .then(res => (res.status === 200 ? res.json() : console.log("Could not load preferences")))
-.then(json => { console.log(json)
+.then(json => {
     board.setPictureType(json.preferred_api);
     board.changeCardColor(json.color_closed);
     board.changeFoundCardColor(json.color_found);

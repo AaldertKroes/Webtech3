@@ -55,6 +55,6 @@ document.getElementById("save_preferences").addEventListener('click', (evt) => {
         },
         body:JSON.stringify(sendData)
     })
-    .then(res => (res.status === 200 ? console.log(res.json()) : console.log("nope")))
+    .then(res => (res.status === 200 ? console.log(res.json()) : console.log("no good response")))
     .then(token => window.location.href = "http://localhost:9000/html/index.html");
 });
