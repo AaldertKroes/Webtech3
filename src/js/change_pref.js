@@ -1,8 +1,7 @@
 const token = localStorage.getItem("token")
 const data = atob(token.split('.')[1])
-console.log(token);
-console.log(data);
-console.log(Object.keys(data))
+const obj = JSON.parse(data)
+console.log(obj["sub"])
 
 // document.getElementById("submit").addEventListener('click', (evt) =>{
 //     evt.preventDefault();
