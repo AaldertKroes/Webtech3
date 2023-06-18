@@ -9,9 +9,21 @@ const b = board.generateBoard();
 document.getElementById('mainboard_child').innerHTML = b;
 document.querySelectorAll('div.card').forEach ( card => card.addEventListener('click', evt => board.flip(evt.currentTarget.dataset.cardid)));
 
-
-//aanmaken time
+// Start timer
 const timer = new Timer();
+
+// Fetch top 5 players for the leaderboard
+fetch('http://localhost:8000/scores', {method:'GET', headers:{"Authorization":`Bearer ${localStorage.getItem("token")}`}})
+.then(res => res.json())
+.then(json => json.sort((a,b) => {if(a.score < b.score){return 1}}))
+.then(sorted => {
+    let loopLength = (sorted.length >= 5 ? 5 : sorted.length);
+    let leaderboardPlayers = '<p id="players">';
+    for(let i = 0; i < loopLength; i++){
+        leaderboardPlayers += `${sorted[i].username} | ${sorted[i].score}<br>`;
+    }
+    document.getElementById("leaderboard_player_scores").innerHTML = `${leaderboardPlayers}</p>`;
+})
 
 //**********************************************************eventlisteners******************************************************************
 //***********************************************************reset button*******************************************************************
