@@ -1,42 +1,31 @@
-const token = localStorage.getItem("token")
-const data = atob(token.split('.')[1])
-const obj = JSON.parse(data)
-console.log(obj["sub"])
-
-// document.getElementById("submit").addEventListener('click', (evt) =>{
-//     evt.preventDefault();
-//
-//     const data = new FormData(document.querySelector('form'));
-//     const sendData = {"username":data.get("username"), "password":data.get("password")};
-//
-//     fetch('http://localhost:8000/api/login_check', {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(sendData)})
-//         .then(res => (res.status === 401 ? invalidCredentials() : res.json()))
-//         .then(json => localStorage.setItem("token", json.token))
-//         .then(token => window.location.href = "http://localhost:9000/html/index.html");
-//
-//     var jwt = localStorage.getItem("token");
-//     console.log(jwt);
-//     //window.location.href = "http://localhost:9000/html/index.html";
-// });
+let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
 
 document.getElementById("submit").addEventListener('click', (evt) => {
     const data = new FormData(document.querySelector('form'));
     // const sendData = {"mail"}
-    console.log(data)
+    const sendData = {"email": data.get("email")}
+
+    fetch(`http://localhost:8000/api/player/${currentPlayerId}/email`, {
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${localStorage.getItem("token")}`
+        },
+        body:JSON.stringify(sendData)
+    })
+        .then(res => (res.status === 204 ? res.json() : function (){console.log("nee")}))
+        .then(token => window.location.href = "http://localhost:9000/html/index.html")
+
+    // fetch(`https://localhost:8000/api/players/${currentPlayerId}`, {
+    //     method:"GET",
+    //     headers: {
+    //         "Content-Type":"application/json",
+    //         "Authorization":`Bearer ${localStorage.getItem("token")}`
+    //     }}).then(data => console.log(data))
 })
 
-// fetch('https://localhost:8000/api/players', {
-//     method: "GET",
-//     headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
-// })
-//     .then(res => (res.status === 201 ? res.json() : function () {}))
-//     .then(json => console.log(json))
-
-// console.log(atob(token. split('.')[1]))
-
 // Aaldert's werk lmao
-let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
-console.log(currentPlayerId);
+
 
 // Set the two card colors.
 let cardColor; let foundCardColor;
