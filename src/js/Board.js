@@ -1,6 +1,7 @@
 import { Timer } from './Timer.js';
 
 export class Board {
+    #currentPlayerId = 0;
     #size = 2;
     #score = 0;
     #pairs_found = 0;
@@ -24,9 +25,11 @@ export class Board {
 
         this.#size = size;
         this.#timer = new Timer();
+        this.#currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
     }
 
     gameCompleted(){
+        this.#score += 50;
         const duration = 6 * 1000,
         animationEnd = Date.now() + duration,
         defaults = { startVelocity: 30, spread: 360, ticks: 30, zIndex: 0 };
@@ -54,6 +57,23 @@ export class Board {
             })
         );
         }, 250);
+
+        // Save game
+        let sendData = {
+            "id":this.#currentPlayerId,
+            "score":this.#score,
+            "api":this.#picture_type,
+            "color_found":this.#found_color,
+            "color_closed":this.#card_color
+        };
+        fetch('http://localhost:8000/game/save', {
+            method:'POST',
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${localStorage.getItem("token")}`
+            },
+            body:JSON.stringify(sendData)
+        });
     }
 
     /**
