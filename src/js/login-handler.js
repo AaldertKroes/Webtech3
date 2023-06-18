@@ -10,10 +10,6 @@ document.getElementById("submit").addEventListener('click', (evt) =>{
     .then(res => (res.status === 401 ? invalidCredentials() : res.json()))
     .then(json => localStorage.setItem("token", json.token))
     .then(token => window.location.href = "http://localhost:9000/html/index.html");
-
-    var jwt = localStorage.getItem("token");
-    console.log(jwt);
-    //window.location.href = "http://localhost:9000/html/index.html";
 });
 
 /**

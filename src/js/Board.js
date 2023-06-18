@@ -18,7 +18,7 @@ export class Board {
     
     /**
      * Constructor of the Board class
-     * @param {int} size to generate a size*size board.
+     * @param {number} size to generate a size*size board.
      */
     constructor(size){
 
@@ -98,7 +98,8 @@ export class Board {
 
 
     /**
-     * reset het board voor een nieuwe game
+     * Resets the board for a new game.
+     * This can also set the board size and whether pictures need to be shown or not.
      */
     resetBoard(){
         this.#pairs_found = 0;
@@ -196,7 +197,7 @@ export class Board {
     /**
      * When a card is clicked, the card gets flipped and the value (letter combination) is shown and the card is locked.
      * If two cards are clicked, check whether it's a pair or not.
-     * @param {int} id id of the clicked card.
+     * @param {number} id id of the clicked card.
      */
     flip(id){
         // Flips the card and revealing the other side
@@ -256,7 +257,7 @@ export class Board {
 
     /**
      * Returns the amount of pairs found.
-     * @returns {int} amount of pairs found.
+     * @returns {number} amount of pairs found.
      */
     getPairsFound(){return this.#pairs_found;}
     getDistributedPairs(){return this.#distributed_pairs;}
@@ -265,4 +266,10 @@ export class Board {
     setSize(size){this.#size = size;}
 
     setPictureType(type){this.#picture_type = type;}
+
+    getScore(){return this.#score;}
+
+    getCardColor(){return this.#card_color;}
+    getOpenColor(){return this.#open_color;}
+    getFoundColor(){return this.#found_color;}
 }
