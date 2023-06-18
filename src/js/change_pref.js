@@ -24,9 +24,6 @@ document.getElementById("submit").addEventListener('click', (evt) => {
     })
 })
 
-// Aaldert's werk lmao
-
-
 document.getElementById("returnToIndex").addEventListener('click', () => window.location.href = "http://localhost:9000/html/index.html");
 
 // Set the two card colors.
