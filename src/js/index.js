@@ -2,6 +2,8 @@ import { Board } from './Board.js';
 // import { Leaderboard } from './Leaderboard.js';
 import { Timer } from './Timer.js';
 
+if(localStorage.getItem("token") === null){window.location.replace("http://localhost:9000/html/login.html");}
+
 const board = new Board(6);
 const b = board.generateBoard();
 document.getElementById('mainboard_child').innerHTML = b;
@@ -40,3 +42,10 @@ card_content.addEventListener('input', () => board.changeCardContent(card_conten
 //***********************************************************picture type*******************************************************************
 const picture_type = document.getElementById("pictures_shown");
 picture_type.addEventListener('input', () => board.setPictureType(picture_type.value));
+
+//************************************************************log out **********************************************************************
+const logout_button = document.getElementById("logOutButton");
+logout_button.addEventListener('click', () => {
+    localStorage.clear();
+    window.location.replace("http://localhost:9000/html/login.html");
+});

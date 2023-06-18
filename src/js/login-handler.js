@@ -1,3 +1,5 @@
+console.log(localStorage.getItem("token"));
+
 document.getElementById("submit").addEventListener('click', (evt) =>{
     evt.preventDefault();
 
@@ -6,10 +8,12 @@ document.getElementById("submit").addEventListener('click', (evt) =>{
     
     fetch('http://localhost:8000/api/login_check', {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(sendData)})
     .then(res => (res.status === 401 ? invalidCredentials() : res.json()))
-    .then(json => localStorage.setItem("token", json.token));
+    .then(json => localStorage.setItem("token", json.token))
+    .then(token => window.location.href = "http://localhost:9000/html/index.html");
 
     var jwt = localStorage.getItem("token");
     console.log(jwt);
+    //window.location.href = "http://localhost:9000/html/index.html";
 });
 
 /**
