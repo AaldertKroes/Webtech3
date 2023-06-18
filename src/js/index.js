@@ -18,7 +18,10 @@ document.querySelectorAll('div.card').forEach ( card => card.addEventListener('c
 const timer = new Timer();
 
 // Fetch top 5 players for the leaderboard
-fetch('http://localhost:8000/scores', {method:'GET', headers:{"Authorization":`Bearer ${localStorage.getItem("token")}`}})
+fetch('http://localhost:8000/scores', {method:'GET',
+    headers:{
+    "Authorization":`Bearer ${localStorage.getItem("token")}`
+}})
 .then(res => (res.status === 200 ? res.json() : console.log(res)))
 .then(json => json.sort((a,b) => {if(a.score < b.score){return 1}}))
 .then(sorted => {
