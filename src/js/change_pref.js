@@ -3,6 +3,11 @@ const data = atob(token.split('.')[1])
 const obj = JSON.parse(data)
 console.log(obj["sub"])
 
+if(localStorage.getItem("token") === null){
+    alert("Token has either expired or is not set. Please login again.");
+    window.location.replace("http://localhost:9000/html/login.html");
+}
+
 // document.getElementById("submit").addEventListener('click', (evt) =>{
 //     evt.preventDefault();
 //
