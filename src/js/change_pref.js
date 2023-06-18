@@ -1,5 +1,10 @@
 let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
 
+if(localStorage.getItem("token") === null){
+    alert("Token has either expired or is not set. Please login again.");
+    window.location.replace("http://localhost:9000/html/login.html");
+}
+
 document.getElementById("submit").addEventListener('click', (evt) => {
     const data = new FormData(document.querySelector('form'));
     // const sendData = {"mail"}
@@ -26,6 +31,8 @@ document.getElementById("submit").addEventListener('click', (evt) => {
 
 // Aaldert's werk lmao
 
+
+document.getElementById("returnToIndex").addEventListener('click', () => window.location.href = "http://localhost:9000/html/index.html");
 
 // Set the two card colors.
 let cardColor; let foundCardColor;
