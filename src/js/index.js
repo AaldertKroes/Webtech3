@@ -7,7 +7,13 @@ if(localStorage.getItem("token") === null){
 }
 
 let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
-console.log(currentPlayerId);
+let expiration_date = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["exp"];
+
+if (expiration_date < (Date.now()/1000)){
+    alert("Token has expired. Please login");
+    localStorage.clear();
+    window.location.replace("http://localhost:9000/html/login.html")
+}
 
 const board = new Board(6);
 const b = board.generateBoard();
