@@ -1,5 +1,4 @@
 import { Board } from './Board.js';
-// import { Leaderboard } from './Leaderboard.js';
 import { Timer } from './Timer.js';
 
 if(localStorage.getItem("token") === null){
