@@ -1,7 +1,7 @@
-const token = localStorage.getItem("token")
-const data = atob(token.split('.')[1])
-const obj = JSON.parse(data)
-console.log(obj["sub"])
+// const token = localStorage.getItem("token")
+// const data = atob(token.split('.')[1])
+// const obj = JSON.parse(data)
+// console.log(obj["sub"])
 
 if(localStorage.getItem("token") === null){
     alert("Token has either expired or is not set. Please login again.");
@@ -42,6 +42,8 @@ document.getElementById("submit").addEventListener('click', (evt) => {
 // Aaldert's werk lmao
 let currentPlayerId = JSON.parse(atob(localStorage.getItem("token").split('.')[1]))["sub"];
 console.log(currentPlayerId);
+
+document.getElementById("returnToIndex").addEventListener('click', () => window.location.href = "http://localhost:9000/html/index.html");
 
 // Set the two card colors.
 let cardColor; let foundCardColor;
