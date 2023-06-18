@@ -1,6 +1,7 @@
 body {
     background-color: #d3d9e3;
     font-family: monospace;
+    margin: 0px;
 }
 
 .top_text {
@@ -29,17 +30,26 @@ body {
 }
 
 .topBar {
-    width: 100%;
-    height: 4vh;
+    width: 100vw;
+    height: 8vh;
     background: #a3cbf0;
     text-align: center;
+    display: inline-block;
+
+    border-bottom: #3d95e3 4px solid;
 }
 
 .topBarButton {
     background: #3d95e3;
-    border-radius: 1vw;
-    height: 100%;
+    border-radius: 8px;
+    height: 80%;
     width: 25vw;
+    overflow: visible;
+    margin-top: 0.5vh;
+}
+
+.topBarButton a{
+    color: #3B493B;
 }
 
 @media only screen and (min-width: 700px) {
@@ -60,7 +70,7 @@ body {
     }
 
     .topBarButton{
-        width: 10vw;
+        width: fit-content;
     }
 }
 
