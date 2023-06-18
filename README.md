@@ -17,4 +17,4 @@ cd .../Webtech3/src
 php -S localhost:9000
 ```
 Then navigate to `localhost:9000/html/index.html`.
-It is *important* to run this app on port 9000. All the requests and redirects are sent to this port.
+It is *vital* to run this app on `port 9000`. All the requests and redirects are sent to this port.

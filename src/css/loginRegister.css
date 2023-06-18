@@ -17,7 +17,7 @@ body {
     text-align: center;
 }
 
-#invalid-credentials #invalid-register {
+#invalid-credentials #register-valid .relink {
     text-align: center;
 }
 
